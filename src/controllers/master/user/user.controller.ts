@@ -40,7 +40,7 @@ export class UserController {
     DeleteUser(
         @Param('id', ParseIntPipe) id: number
     ) {
-
+        return this.userService.deleteUser(id);
     }
 
    
