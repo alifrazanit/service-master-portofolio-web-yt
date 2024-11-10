@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { UserService } from '../../../services/user/user.service';
+import { findUserDto } from 'src/dto/user.dto';
 
 @Controller('master/user')
 export class UserController {
@@ -8,17 +9,20 @@ export class UserController {
     ){}
 
     @Get()
-    GetAllUser(){
-        return this.userService.getAllUser();
+    GetAllUser(
+        @Query() filter: findUserDto
+    ){
+        return this.userService.getAllUser(filter);
     }
 
     @Get(':id')
     GetUserByID(
-        @Param('id') id: number
+        @Param('id', ParseIntPipe) id: number
     ){
-        console.log('id', id)
         return this.userService.getUserByID(id);
     }
+
+    
 }
 
 
