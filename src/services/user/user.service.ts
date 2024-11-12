@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { userData } from '../../mocks/userData';
-import { findUserDto } from 'src/dto/user.dto';
+import { findUserDto, UserDto } from 'src/dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -19,6 +19,37 @@ export class UserService {
     getUserByID(id: number){
         const user = userData.find(u => u.userId == id);
         return user;
+    }
+
+    createUser(body: UserDto){
+        const payload: UserDto = {
+            userId: Math.random(),
+            ...body
+        }
+        userData.push(payload);
+        return payload;
+    }
+
+    updateUser(id: number, body: UserDto){
+        const isUserExist = userData.findIndex(user => user.userId == id);
+        if(isUserExist == -1){
+            return new NotFoundException('User not found')
+        }
+        userData[isUserExist] = {
+            ...userData[isUserExist],
+            ...body
+        };
+
+        return userData[isUserExist];
+    }
+
+    deleteUser(id: number){
+        const isUserExist = userData.findIndex(user => user.userId == id);
+        if(isUserExist == -1){
+            return new NotFoundException('User not found')
+        }
+        userData.splice(isUserExist, 1);
+        return true;
     }
 
 }
