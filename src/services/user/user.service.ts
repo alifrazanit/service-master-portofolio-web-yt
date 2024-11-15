@@ -1,19 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { userData } from '../../mocks/userData';
 import { findUserDto, UserDto } from 'src/dto/user.dto';
+import { userRepository } from 'src/repositories/user.repository';
 
 @Injectable()
 export class UserService {
+    constructor(
+        private userRepository: userRepository
+    ){ }
+
 
     getAllUser(param: findUserDto){
-        if(param && param.name){
-            const user = userData.filter(user => String(user.name).toLowerCase() === String(param.name).toLowerCase())
-            if(user.length == 0){
-                return new NotFoundException('User not found')
-            }
-            return user;
+        const queryParam = {
+            'name': param.name ? param.name : '' 
         }
-        return userData;
+        const existingData = this.userRepository.find(queryParam);
+        return existingData;
     }
 
     getUserByID(id: number){
