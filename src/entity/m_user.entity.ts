@@ -23,4 +23,10 @@ export class m_user {
         length: 30
     })
     password: string;
+
+    @Column({
+        type:'varchar',
+        length: 225
+    })
+    image: string;
 }
