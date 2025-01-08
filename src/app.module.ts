@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './controllers/master/user/user.controller';
-import { UserService } from './services/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EntitiesModule } from './modules/entities.module';
+import { SharedModule } from './modules/shared.module';
 
 @Module({
   imports: [
@@ -16,9 +16,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'portofolio_website_stag',
       autoLoadEntities: true,
       synchronize: true
-    })
+    }),
+    EntitiesModule,
+    SharedModule
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
