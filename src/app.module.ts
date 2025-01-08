@@ -15,7 +15,8 @@ import { SharedModule } from './modules/shared.module';
       password: '123456',
       database: 'portofolio_website_stag',
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: true,
+      // dropSchema: true
     }),
     EntitiesModule,
     SharedModule
