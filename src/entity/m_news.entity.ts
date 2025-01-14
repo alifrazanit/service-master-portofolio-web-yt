@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { m_category } from './m_category.entity';
+
 
 @Entity()
 export class m_news {
@@ -16,10 +18,10 @@ export class m_news {
     })
     newsContent: string;
 
-    @Column({
-        type: 'int',
-    })
-    newsCategoryId: number;
+    // @Column({
+    //     type: 'int',
+    // })
+    // newsCategoryId: number;
 
     @Column({
         type: 'date',
@@ -42,4 +44,8 @@ export class m_news {
         length: 100
     })
     author: string;
+
+    @ManyToOne(() => m_category, (category) => category.news)
+    // @JoinColumn({ name: 'newsCategoryId' })
+    category: m_category[];
 }

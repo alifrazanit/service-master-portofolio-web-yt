@@ -16,7 +16,7 @@ import { SharedModule } from './modules/shared.module';
       database: 'portofolio_website_stag',
       autoLoadEntities: true,
       synchronize: true,
-      // dropSchema: true
+      dropSchema: true
     }),
     EntitiesModule,
     SharedModule
