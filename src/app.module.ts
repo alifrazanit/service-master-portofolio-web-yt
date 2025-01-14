@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserController } from './controllers/master/user/user.controller';
 import { UserService } from './services/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EntityModule } from './modules/entity/entity.module';
 
 @Module({
   imports: [
@@ -15,8 +16,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: '123456',
       database: 'portofolio_website_stag',
       autoLoadEntities: true,
-      synchronize: true
-    })
+      // synchronize: true,
+      // dropSchema: true
+    }),
+    EntityModule
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
